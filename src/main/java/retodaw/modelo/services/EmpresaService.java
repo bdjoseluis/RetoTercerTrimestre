@@ -1,18 +1,14 @@
 package retodaw.modelo.services;
 
+import java.util.List;
+
+import retodaw.modelo.entities.Empresa;
+
 public interface EmpresaService {
 
-	/* 
-	 * Empresas /api/empresas
-1. Obtener todas las empresas
-• Endpoint: /
-2. Crear empresa
-• Endpoint: /
-3. Obtener empresa por id
-• Endpoint: /{id}
-4. Modificar las empresas
-• Endpoint: /{id}
-5. Borrar empresa
-• Endpoint: /{id}
-	 */
+	Empresa alta(Empresa vacante);
+	Empresa modificar(Empresa vacante);
+    int eliminar(int id);
+    Empresa buscarUna(int id);
+    List<Empresa> buscarTodos();
 }

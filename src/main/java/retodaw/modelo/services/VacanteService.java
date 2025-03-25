@@ -1,19 +1,16 @@
 package retodaw.modelo.services;
 
+import java.util.List;
+
+import retodaw.modelo.entities.Vacante;
+
 public interface VacanteService {
 	
-	/* Vacantes /api/vacantes
-1. Obtener todas las vacantes
-• Endpoint: /
-2. Crear vacante
-• Endpoint: /
-3. Obtener vacante por id
-• Endpoint: /{id}
-4. Modificar las vacantes
-• Endpoint: /{id}
-5. Borrar vacante
-• Endpoint: /{id} */
-	
+	Vacante alta(Vacante vacante);
+	Vacante modificar(Vacante vacante);
+    int eliminar(int id);
+    Vacante buscarUna(int id);
+    List<Vacante> buscarTodos();
 	
 
 }

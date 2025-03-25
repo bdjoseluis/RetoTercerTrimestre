@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Data
 @Builder
 @Entity
@@ -27,17 +27,16 @@ import lombok.NoArgsConstructor;
 @Schema(description="vacantes")
 public class Vacante {
 	
-	// falta el id??? para primary key? 
-	// 	@Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "id_vacante")
-	// private int idVacante; 
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_vacante")
+    private int idVacante; 
 	
 	private String nombre; 
 	private String descripcion; 
 	private Date fecha; 
 	private double salario; 
-	private Enum estatus; 
+	private Estatus estatus; 
 	private int destacado; 
 	private String imagen; 
 	private String detalles;
@@ -46,7 +45,7 @@ public class Vacante {
 		super();
 	}
 
-	public Vacante(String nombre, String descripcion, Date fecha, double salario, Enum estatus, int destacado,
+	public Vacante(String nombre, String descripcion, Date fecha, double salario, Estatus estatus, int destacado,
 			String imagen, String detalles) {
 		super();
 		this.nombre = nombre;
@@ -59,6 +58,14 @@ public class Vacante {
 		this.detalles = detalles;
 	}
 
+	public int getIdVacante() {
+		return idVacante;
+	}
+
+	public void setIdVacante(int idVacante) {
+		this.idVacante = idVacante;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -91,11 +98,12 @@ public class Vacante {
 		this.salario = salario;
 	}
 
-	public Enum getEstatus() {
+	public Estatus getEstatus() {
 		return estatus;
 	}
 
-	public void setEstatus(Enum estatus) {
+	
+	public void setEstatus(Estatus estatus) {
 		this.estatus = estatus;
 	}
 
