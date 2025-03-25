@@ -40,10 +40,7 @@ public class Solicitud {
 	@OneToOne 
 	@JoinColumn(name = "email", nullable = false)
     private Usuario usuario;
-	public Solicitud() {
-		super();
 	
-	}
 	public Solicitud(int id_solicitud, Date date, String archivo, String comentarios, int estado, String curriculum) {
 		super();
 		this.id_solicitud = id_solicitud;

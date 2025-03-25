@@ -38,21 +38,7 @@ public class Usuario {
 	private Date fecha_Registro;
 	private String rol;
 	
-	public Usuario() {
-		super();
-	}
-	
-	public Usuario(String email, String nombre, String apellidos, String password, int enabled, Date fecha_Registro,
-			String rol) {
-		super();
-		this.email = email;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.password = password;
-		this.enabled = enabled;
-		this.fecha_Registro = fecha_Registro;
-		this.rol = rol;
-	}
+
 
 	
 	public String getEmail() {
