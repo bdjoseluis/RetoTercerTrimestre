@@ -19,6 +19,6 @@ public class UsuarioDto {
 	private String apellidos;
 	private String password;
 	private int enabled;
-	private Date fecha_Registro;
+	private Date fechaRegistro;
 	private String rol;
 }

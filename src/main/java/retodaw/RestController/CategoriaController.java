@@ -29,17 +29,14 @@ import retodaw.modelo.services.CategoriaService;
 @Tag(name = "Categorias", description = "Operaciones sobre las categorías")
 public class CategoriaController {
 
-	@Autowired
-	CategoriaService categoriaService;
-	
-	@Autowired
-	CategoriaDto categoriaDto;
-	
-	@PostMapping("/alta")
-    @Operation(summary = "Dar de alta una categoría", description = "registra una nueva categoría")
+    @Autowired
+    private CategoriaService categoriaService;
+
+    @PostMapping("/alta")
+    @Operation(summary = "Dar de alta una categoría", description = "Registra una nueva categoría")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Comercial registrado con exito"),
-        @ApiResponse(responseCode = "500", description = "Error al registrar el comercial")
+        @ApiResponse(responseCode = "200", description = "Categoría registrada con éxito"),
+        @ApiResponse(responseCode = "500", description = "Error al registrar la categoría")
     })
     public ResponseEntity<CategoriaDto> alta(@RequestBody CategoriaDto categoriaDto) {
         return ResponseEntity.ok(CategoriaMapper.toDto(categoriaService.alta(CategoriaMapper.toEntity(categoriaDto))));
@@ -48,7 +45,7 @@ public class CategoriaController {
     @PutMapping("/modificar")
     @Operation(summary = "Modificar una categoría", description = "Actualiza los datos de una categoría existente.")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Categoría modificado con éxito"),
+        @ApiResponse(responseCode = "200", description = "Categoría modificada con éxito"),
         @ApiResponse(responseCode = "404", description = "Categoría no encontrada"),
         @ApiResponse(responseCode = "500", description = "Error al modificar la categoría")
     })
@@ -57,7 +54,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/eliminar/{idCategoria}")
-    @Operation(summary = "Eliminar una categoría", description = "Borra una categoría por su id")
+    @Operation(summary = "Eliminar una categoría", description = "Elimina una categoría por su id")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Categoría eliminada con éxito"),
         @ApiResponse(responseCode = "404", description = "Categoría no encontrada"),
@@ -68,10 +65,10 @@ public class CategoriaController {
     }
 
     @GetMapping("/uno/{idCategoria}")
-    @Operation(summary = "Buscar una categoría", description = "obtiene los datos de un categoría por su id")
+    @Operation(summary = "Buscar una categoría", description = "Obtiene los datos de una categoría por su id")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Categoría encontrada"),
-        @ApiResponse(responseCode = "404", description = "Ccategoría no encontrada"),
+        @ApiResponse(responseCode = "404", description = "Categoría no encontrada"),
         @ApiResponse(responseCode = "500", description = "Error al buscar la categoría")
     })
     public ResponseEntity<CategoriaDto> buscarUno(@PathVariable int idCategoria) {
@@ -79,9 +76,9 @@ public class CategoriaController {
     }
 
     @GetMapping("/todos")
-    @Operation(summary = "Listar todos las categorías", description = "devuelve una lista con todas las categorías")
+    @Operation(summary = "Listar todas las categorías", description = "Devuelve una lista con todas las categorías")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "lista obtenida con exito"),
+        @ApiResponse(responseCode = "200", description = "Lista obtenida con éxito"),
         @ApiResponse(responseCode = "500", description = "Error al obtener la lista de categorías")
     })
     public ResponseEntity<List<CategoriaDto>> buscarTodos() {
@@ -90,7 +87,4 @@ public class CategoriaController {
                 .map(CategoriaMapper::toDto)
                 .collect(Collectors.toList()));
     }
-
-  
-
 }
