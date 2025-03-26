@@ -1,128 +1,51 @@
 package retodaw.modelo.entities;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Date;
-import java.util.Objects;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Builder
 @Entity
-@Table(name = "usuarios")
-@Schema(description="usuarios")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "Usuarios")
 public class Usuario {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "email")
-	private String email;
-	private String nombre;
-	private String apellidos;
-	private String password;
-	private int enabled;
-	private Date fecha_Registro;
-	private String rol;
-	
+    @Id
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
+    @Column(nullable = false)
+    private String nombre;
 
-	
-	public String getEmail() {
-		return email;
-	}
+    @Column(nullable = false)
+    private String apellidos;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Column(nullable = false)
+    private String password;
 
-	public String getNombre() {
-		return nombre;
-	}
+    @Column(nullable = false)
+    private int enabled;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    @Column(name = "fecha_Registro")
+    private Date fechaRegistro;
 
-	public String getApellidos() {
-		return apellidos;
-	}
+    @Column(nullable = false)
+    private String rol;
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+    @OneToMany(mappedBy = "usuario")
+    private List<Solicitud> solicitudes;
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public int getEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
-	}
-
-	public Date getFecha_Registro() {
-		return fecha_Registro;
-	}
-
-	public void setFecha_Registro(Date fecha_Registro) {
-		this.fecha_Registro = fecha_Registro;
-	}
-
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(apellidos, email, enabled, fecha_Registro, nombre, password, rol);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		return Objects.equals(apellidos, other.apellidos) && Objects.equals(email, other.email)
-				&& enabled == other.enabled && Objects.equals(fecha_Registro, other.fecha_Registro)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
-				&& Objects.equals(rol, other.rol);
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [email=" + email + ", nombre=" + nombre + ", apellidos=" + apellidos + ", password=" + password
-				+ ", enabled=" + enabled + ", fecha_Registro=" + fecha_Registro + ", rol=" + rol + "]";
-	}
-	
-	
-	
+    public Usuario(String email, String nombre, String apellidos, String password, int enabled, Date fechaRegistro, String rol) {
+        this.email = email;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.password = password;
+        this.enabled = enabled;
+        this.fechaRegistro = fechaRegistro;
+        this.rol = rol;
+    }
 }

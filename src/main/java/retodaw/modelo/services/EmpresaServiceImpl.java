@@ -5,12 +5,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import retodaw.modelo.entities.Empresa;
 import retodaw.modelo.repository.EmpresaRepository;
 
 
-
+@Service
 public class EmpresaServiceImpl implements EmpresaService{
 	
 	@Autowired

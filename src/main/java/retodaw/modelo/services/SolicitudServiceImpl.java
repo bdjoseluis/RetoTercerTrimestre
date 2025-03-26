@@ -15,7 +15,7 @@ public class SolicitudServiceImpl implements SolicitudService{
     @Override
     public Solicitud alta(Solicitud solicitud) {
         try {
-            if (solicitudRepository.existsById(solicitud.getId_solicitud()))
+            if (solicitudRepository.existsById(solicitud.getIdSolicitud()))
                 return null;
             else  
                 return solicitudRepository.save(solicitud);
@@ -28,7 +28,7 @@ public class SolicitudServiceImpl implements SolicitudService{
     @Override
     public Solicitud modificar(Solicitud solicitud) {
         try {
-            if (solicitudRepository.existsById(solicitud.getId_solicitud()))
+            if (solicitudRepository.existsById(solicitud.getIdSolicitud()))
                 return solicitudRepository.save(solicitud);
             else  
                 return null;

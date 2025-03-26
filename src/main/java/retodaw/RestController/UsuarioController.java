@@ -31,9 +31,7 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
-    
-    @Autowired
-    UsuarioDto usuarioDto;
+
     
     @PostMapping("/alta")
     @Operation(summary = "Dar de alta un usuario", description = "registra un nuevo usuario")

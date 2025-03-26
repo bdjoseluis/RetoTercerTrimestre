@@ -1,18 +1,18 @@
 package retodaw.dtos;
 
-import retodaw.modelo.entities.Solicitud;
 import retodaw.modelo.entities.Usuario;
 
 public class UsuarioMapper {
-	public static UsuarioDto toDto(Usuario usuario) {
+
+    public static UsuarioDto toDto(Usuario usuario) {
         return new UsuarioDto(
-        		usuario.getEmail(),
-        		usuario.getNombre(),
-        		usuario.getApellidos(),
-        		usuario.getPassword(),
-        		usuario.getEnabled(),
-        		usuario.getFecha_Registro(),
-        		usuario.getRol()
+            usuario.getEmail(),
+            usuario.getNombre(),
+            usuario.getApellidos(),
+            usuario.getPassword(),
+            usuario.getEnabled(),
+            usuario.getFechaRegistro(),
+            usuario.getRol()
         );
     }
 
@@ -21,16 +21,14 @@ public class UsuarioMapper {
             return null;
         }
 
-        Usuario usuario = new Usuario(
-        		dto.getEmail(),
-            	dto.getNombre(),
-            	dto.getApellidos(),
-            	dto.getPassword(),
-            	dto.getEnabled(),
-            	dto.getFecha_Registro(),
-            	dto.getRol()
-        );
-        
-        return usuario;
+        return Usuario.builder()
+            .email(dto.getEmail())
+            .nombre(dto.getNombre())
+            .apellidos(dto.getApellidos())
+            .password(dto.getPassword())
+            .enabled(dto.getEnabled())
+            .fechaRegistro(dto.getFechaRegistro())
+            .rol(dto.getRol())
+            .build();
     }
 }

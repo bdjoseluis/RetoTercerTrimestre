@@ -32,8 +32,7 @@ public class EmpresaController {
 	@Autowired
 	EmpresaService empresaService;
 	
-	@Autowired
-	EmpresaDto empresaDto;
+
 	
 	@PostMapping("/alta")
     @Operation(summary = "Dar de alta una empresa", description = "registra una nueva empresa")

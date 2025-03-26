@@ -1,103 +1,41 @@
 package retodaw.modelo.entities;
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "Empresas")
 public class Empresa {
-	private int id_empresa; 
-	private String cif; 
-	private String nombre_empresa; 
-	private String direccion_fiscal; 
-	private String pais; 
-	private String email;
-	
-	public Empresa() {
-		super();
 
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_empresa")
+    private int id_empresa;
 
-	public Empresa(int id_empresa, String cif, String nombre_empresa, String direccion_fiscal, String pais,
-			String email) {
-		super();
-		this.id_empresa = id_empresa;
-		this.cif = cif;
-		this.nombre_empresa = nombre_empresa;
-		this.direccion_fiscal = direccion_fiscal;
-		this.pais = pais;
-		this.email = email;
-	}
+    @Column(name = "cif", nullable = false, unique = true)
+    private String cif;
 
-	public int getId_empresa() {
-		return id_empresa;
-	}
+    @Column(name = "nombre_empresa", nullable = false)
+    private String nombre_empresa;
 
-	public void setId_empresa(int id_empresa) {
-		this.id_empresa = id_empresa;
-	}
+    @Column(name = "direccion_fiscal", nullable = false)
+    private String direccion_fiscal;
 
-	public String getCif() {
-		return cif;
-	}
+    @Column(name = "pais", nullable = false)
+    private String pais;
 
-	public void setCif(String cif) {
-		this.cif = cif;
-	}
-
-	public String getNombre_empresa() {
-		return nombre_empresa;
-	}
-
-	public void setNombre_empresa(String nombre_empresa) {
-		this.nombre_empresa = nombre_empresa;
-	}
-
-	public String getDireccion_fiscal() {
-		return direccion_fiscal;
-	}
-
-	public void setDireccion_fiscal(String direccion_fiscal) {
-		this.direccion_fiscal = direccion_fiscal;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(cif, direccion_fiscal, email, id_empresa, nombre_empresa, pais);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Empresa other = (Empresa) obj;
-		return Objects.equals(cif, other.cif) && Objects.equals(direccion_fiscal, other.direccion_fiscal)
-				&& Objects.equals(email, other.email) && id_empresa == other.id_empresa
-				&& Objects.equals(nombre_empresa, other.nombre_empresa) && Objects.equals(pais, other.pais);
-	}
-
-	@Override
-	public String toString() {
-		return "Empresa [id_empresa=" + id_empresa + ", cif=" + cif + ", nombre_empresa=" + nombre_empresa
-				+ ", direccion_fiscal=" + direccion_fiscal + ", pais=" + pais + ", email=" + email + "]";
-	}
-	
-	
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 }

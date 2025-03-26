@@ -32,9 +32,7 @@ public class VacanteController {
     @Autowired
     VacanteService vacanteService;
     
-    @Autowired
-    VacanteDto vacanteDto;
-    
+
     @PostMapping("/alta")
     @Operation(summary = "Dar de alta una vacante", description = "registra una nueva vacante")
     @ApiResponses({
