@@ -15,5 +15,4 @@ public class CategoriaDto {
     private int id_categoria;
     private String nombre;
     private String descripcion;
-    private int id_vacante;
 }

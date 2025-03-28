@@ -14,7 +14,7 @@ public class SolicitudDto {
     private Date fecha;
     private String archivo;
     private String comentarios;
-    private int estado;
+    private Byte estado;
     private String curriculum;
     private String email;
     private int idVacante;

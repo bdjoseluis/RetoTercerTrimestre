@@ -23,12 +23,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "Categorias")
 public class Categoria {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id_categoria; 
-	private String nombre; 
-	private String descripcion;
-	@ManyToOne
-    @JoinColumn(name = "id_vacante", referencedColumnName = "id_vacante")
-    private Vacante vacante;	
+    private int id_categoria;
+    private String nombre;
+    private String descripcion;
 }

@@ -6,14 +6,12 @@ import retodaw.modelo.services.VacanteService;
 
 public class CategoriaMapper {
 
-    private static VacanteService vacanteService;
 
     public static CategoriaDto toDto(Categoria categoria) {
         return new CategoriaDto(
             categoria.getId_categoria(),
             categoria.getNombre(),
-            categoria.getDescripcion(),
-            categoria.getVacante() != null ? categoria.getVacante().getIdVacante() : 0
+            categoria.getDescripcion()
         );
     }
 
@@ -22,13 +20,11 @@ public class CategoriaMapper {
             return null;
         }
 
-        Vacante vacante = vacanteService.buscarUna(dto.getId_vacante());
 
         Categoria categoria = new Categoria(
             dto.getId_categoria(),
             dto.getNombre(),
-            dto.getDescripcion(),
-            vacante
+            dto.getDescripcion()
         );
 
         return categoria;

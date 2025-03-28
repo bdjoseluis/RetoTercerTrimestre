@@ -30,7 +30,8 @@ public class Usuario {
     @Column(nullable = false)
     private int enabled;
 
-    @Column(name = "fecha_Registro")
+    @Column(name = "fecha_Registro", columnDefinition = "DATE")
+    @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
 
     @Column(nullable = false)

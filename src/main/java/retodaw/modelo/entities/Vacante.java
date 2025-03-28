@@ -1,16 +1,19 @@
 package retodaw.modelo.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -33,19 +36,41 @@ public class Vacante {
     private int idVacante; 
 	
 	private String nombre; 
-	private String descripcion; 
+	private String descripcion;
+	@Temporal(TemporalType.DATE)
 	private Date fecha; 
 	private double salario; 
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Estatus estatus; 
-	private int destacado; 
+	@Column(nullable = false)
+	private Byte destacado;
+
+	//@Convert(converter = BooleanToBitConverter.class)
+	
+
+	
 	private String imagen; 
 	private String detalles;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false)
+    private Categoria categoria;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_empresa", referencedColumnName = "id_empresa", nullable = false)
+    private Empresa empresa;
+
+	
+    
+	
 	
 	public Vacante() {
 		super();
 	}
 
-	public Vacante(String nombre, String descripcion, Date fecha, double salario, Estatus estatus, int destacado,
+	public Vacante(String nombre, String descripcion, Date fecha, double salario, Estatus estatus, Byte destacado,
 			String imagen, String detalles) {
 		super();
 		this.nombre = nombre;
@@ -107,11 +132,11 @@ public class Vacante {
 		this.estatus = estatus;
 	}
 
-	public int getDestacado() {
+	public Byte getDestacado() {
 		return destacado;
 	}
 
-	public void setDestacado(int destacado) {
+	public void setDestacado(Byte destacado) {
 		this.destacado = destacado;
 	}
 
