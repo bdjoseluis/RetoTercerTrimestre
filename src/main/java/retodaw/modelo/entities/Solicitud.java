@@ -18,6 +18,7 @@ public class Solicitud {
     private int idSolicitud;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
 
     @Column(nullable = false)
@@ -26,7 +27,8 @@ public class Solicitud {
     private String comentarios;
 
     @Column(nullable = false)
-    private int estado;
+    private Byte estado;
+
 
     private String curriculum;
 
@@ -38,7 +40,7 @@ public class Solicitud {
     @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
     private Usuario usuario;
 
-    public Solicitud(int idSolicitud, Date fecha, String archivo, String comentarios, int estado, 
+    public Solicitud(int idSolicitud, Date fecha, String archivo, String comentarios, Byte estado, 
                      String curriculum, Usuario usuario, Vacante vacante) {
         this.idSolicitud = idSolicitud;
         this.fecha = fecha;

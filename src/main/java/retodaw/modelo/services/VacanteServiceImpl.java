@@ -63,4 +63,10 @@ public class VacanteServiceImpl implements VacanteService{
         return vacanteRepository.findAll();
     }
 
+	@Override
+	public List<Vacante> vacantesPorEmpresa(int id_empresa) {
+		vacanteRepository.findByEmpresaId(id_empresa);
+		return null;
+	}
+
 }

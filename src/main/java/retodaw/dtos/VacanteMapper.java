@@ -2,11 +2,14 @@ package retodaw.dtos;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import retodaw.modelo.entities.Categoria;
+import retodaw.modelo.entities.Empresa;
 import retodaw.modelo.entities.Estatus;
 import retodaw.modelo.entities.Usuario;
 import retodaw.modelo.entities.Vacante;
@@ -23,14 +26,18 @@ public class VacanteMapper {
         		vacante.getEstatus(),
         		vacante.getDestacado(),
         		vacante.getImagen(),
-        		vacante.getDetalles()
+        		vacante.getDetalles(),
+        		vacante.getCategoria().getId_categoria(),
+        		vacante.getEmpresa().getId_empresa()
         );
     }
 
-    public static Vacante toEntity(VacanteDto dto) {
+    public static Vacante toEntity(VacanteDto dto, Categoria categoria, Empresa dtoempresa) {
         if (dto == null) {
             return null;
         }
+        
+
 
         Vacante vacante = new Vacante(
         		dto.getIdVacante(),
@@ -41,7 +48,9 @@ public class VacanteMapper {
         		dto.getEstatus(),
         		dto.getDestacado(),
         		dto.getImagen(),
-        		dto.getDetalles()
+        		dto.getDetalles(), 
+        		categoria,
+        		dtoempresa
         );
         
         return vacante;

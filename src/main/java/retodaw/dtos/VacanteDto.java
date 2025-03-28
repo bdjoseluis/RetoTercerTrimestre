@@ -2,6 +2,7 @@ package retodaw.dtos;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +21,12 @@ public class VacanteDto {
 	private String descripcion; 
 	private Date fecha; 
 	private double salario; 
-	private Estatus estatus; 
-	private int destacado; 
+	private Estatus estatus;
+	@Column(nullable = false)
+	private Byte destacado;
+
 	private String imagen; 
 	private String detalles;
+	private int id_categoria;
+	private int id_empresa;
 }

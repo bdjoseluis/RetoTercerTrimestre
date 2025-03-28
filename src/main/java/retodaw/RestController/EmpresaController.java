@@ -21,7 +21,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import retodaw.dtos.EmpresaDto;
 import retodaw.dtos.EmpresaMapper;
+import retodaw.modelo.repository.VacanteRepository;
 import retodaw.modelo.services.EmpresaService;
+import retodaw.modelo.services.VacanteService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -32,6 +34,8 @@ public class EmpresaController {
 	@Autowired
 	EmpresaService empresaService;
 	
+	@Autowired
+    private VacanteService vacanteService;
 
 	
 	@PostMapping("/alta")
@@ -55,15 +59,25 @@ public class EmpresaController {
         return ResponseEntity.ok(EmpresaMapper.toDto(empresaService.modificar(EmpresaMapper.toEntity(empresaDto))));
     }
 
-    @DeleteMapping("/eliminar/{idEmpresal}")
+    @DeleteMapping("/eliminar/{idEmpresa}")
     @Operation(summary = "Eliminar una empresa", description = "Borra una empresa por su id")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Empresa eliminada con éxito"),
         @ApiResponse(responseCode = "404", description = "Empresa no encontrada"),
+        @ApiResponse(responseCode = "400", description = "La empresa no se puede eliminar porque tiene vacantes asociadas"),
         @ApiResponse(responseCode = "500", description = "Error al eliminar la empresa")
     })
     public ResponseEntity<Integer> eliminar(@PathVariable int idEmpresa) {
-        return ResponseEntity.ok(empresaService.eliminar(idEmpresa));
+        try {
+        	if(vacanteService.vacantesPorEmpresa(idEmpresa).isEmpty()) {
+                return ResponseEntity.ok(empresaService.eliminar(idEmpresa));
+        	}
+        	else {
+        		return ResponseEntity.status(400).body(null);
+        	}
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @GetMapping("/uno/{idEmpresa}")

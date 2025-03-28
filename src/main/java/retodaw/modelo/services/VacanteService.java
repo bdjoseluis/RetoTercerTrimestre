@@ -11,6 +11,7 @@ public interface VacanteService {
     int eliminar(int id);
     Vacante buscarUna(int id);
     List<Vacante> buscarTodos();
+    List<Vacante> vacantesPorEmpresa(int id_empresa);
 	
 
 }

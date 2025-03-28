@@ -21,6 +21,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import retodaw.dtos.VacanteDto;
 import retodaw.dtos.VacanteMapper;
+import retodaw.modelo.entities.Categoria;
+import retodaw.modelo.entities.Empresa;
+import retodaw.modelo.services.CategoriaService;
+import retodaw.modelo.services.EmpresaService;
 import retodaw.modelo.services.VacanteService;
 
 @RestController
@@ -32,6 +36,12 @@ public class VacanteController {
     @Autowired
     VacanteService vacanteService;
     
+    @Autowired
+    EmpresaService empresaService;
+    
+    @Autowired
+    CategoriaService categoriaService;
+    
 
     @PostMapping("/alta")
     @Operation(summary = "Dar de alta una vacante", description = "registra una nueva vacante")
@@ -39,8 +49,10 @@ public class VacanteController {
         @ApiResponse(responseCode = "200", description = "Vacante registrada con éxito"),
         @ApiResponse(responseCode = "500", description = "Error al registrar la vacante")
     })
-    public ResponseEntity<VacanteDto> alta(@RequestBody VacanteDto vacanteDto) {
-        return ResponseEntity.ok(VacanteMapper.toDto(vacanteService.alta(VacanteMapper.toEntity(vacanteDto))));
+    public ResponseEntity<VacanteDto> alta(@RequestBody VacanteDto vacanteDto, int id_categoria, int id_empresa) {
+    	Empresa empresa= empresaService.buscarUna(id_empresa);
+    	Categoria categoria = categoriaService.buscarUna(id_categoria);
+        return ResponseEntity.ok(VacanteMapper.toDto(vacanteService.alta(VacanteMapper.toEntity(vacanteDto, categoria, empresa))));
     }
 
     @PutMapping("/modificar")
@@ -50,8 +62,10 @@ public class VacanteController {
         @ApiResponse(responseCode = "404", description = "Vacante no encontrada"),
         @ApiResponse(responseCode = "500", description = "Error al modificar la vacante")
     })
-    public ResponseEntity<VacanteDto> modificar(@RequestBody VacanteDto vacanteDto) {
-        return ResponseEntity.ok(VacanteMapper.toDto(vacanteService.modificar(VacanteMapper.toEntity(vacanteDto))));
+    public ResponseEntity<VacanteDto> modificar(@RequestBody VacanteDto vacanteDto, int id_categoria, int id_empresa) {
+    	Empresa empresa= empresaService.buscarUna(id_empresa);
+    	Categoria categoria = categoriaService.buscarUna(id_categoria);
+        return ResponseEntity.ok(VacanteMapper.toDto(vacanteService.modificar(VacanteMapper.toEntity(vacanteDto, categoria, empresa))));
     }
 
     @DeleteMapping("/eliminar/{idVacante}")
