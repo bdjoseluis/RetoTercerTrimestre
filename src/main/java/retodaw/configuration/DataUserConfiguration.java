@@ -49,6 +49,7 @@ public class DataUserConfiguration {
                 .requestMatchers("/empresas/**").hasAnyAuthority("EMPRESA", "ADMON")  // Solo usuarios con rol EMPRESA o ADMON pueden acceder
                 .requestMatchers("/categorias/**").hasAnyAuthority("EMPRESA", "ADMON")
                 .requestMatchers("/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON")
+                .requestMatchers("/usuarios/solicitudes/:id").hasAnyAuthority("EMPRESA", "ADMON", "Cliente")
                 .requestMatchers("/signup/**").permitAll() // Permitir acceso sin autenticación a la ruta de registro
                 .requestMatchers("/**").hasAuthority("ADMON") // Los usuarios con rol ADMON pueden acceder a todo lo demás
             )

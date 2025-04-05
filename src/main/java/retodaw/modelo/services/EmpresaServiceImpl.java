@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import retodaw.modelo.entities.Empresa;
+import retodaw.modelo.entities.Solicitud;
+import retodaw.modelo.entities.Vacante;
 import retodaw.modelo.repository.EmpresaRepository;
+import retodaw.modelo.repository.SolicitudRepository;
+import retodaw.modelo.repository.VacanteRepository;
 
 
 @Service
@@ -16,6 +20,12 @@ public class EmpresaServiceImpl implements EmpresaService{
 	
 	@Autowired
     private EmpresaRepository empresaRepository;
+	
+	@Autowired
+	private VacanteRepository vacanteRepository;
+	
+	@Autowired
+	private SolicitudRepository solicitudRepository;
     
     @Override
     public Empresa alta(Empresa empresa) {
@@ -65,6 +75,18 @@ public class EmpresaServiceImpl implements EmpresaService{
     @Override
     public List<Empresa> buscarTodos() {
         return empresaRepository.findAll();
+    }
+
+    @Override
+    public List<Solicitud> obtenerSolicitudesDeEmpresa(int idEmpresa) {
+        Empresa empresa = empresaRepository.findById(idEmpresa)
+            .orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
+
+        List<Vacante> vacantes = vacanteRepository.findByEmpresa(empresa);
+
+        return vacantes.stream()
+            .flatMap(v -> solicitudRepository.findByVacante(v).stream())
+            .collect(Collectors.toList());
     }
 
 }
