@@ -23,11 +23,11 @@ public class RetoDawApplication {
     {
         return new OpenAPI()
                 .components(new Components())
-                .info(new Info().title("API ACTIVIDAD5")
+                .info(new Info().title("API Reto Daw")
                         .description("Proyecto de API REST")
                         .contact(new Contact()
-                                .name("Jose Luis Botella Devesa")
-                                .email("josbotdev@gmail.com")
+                                .name("Reto Daw")
+                                .email("")
                                 .url("http://localhost:8087/swagger-ui/index.html"))
                         .version("1.0"));
     }

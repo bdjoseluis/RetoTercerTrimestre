@@ -21,6 +21,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import retodaw.dtos.EmpresaDto;
 import retodaw.dtos.EmpresaMapper;
+import retodaw.dtos.SolicitudDto;
+import retodaw.dtos.SolicitudMapper;
 import retodaw.modelo.repository.VacanteRepository;
 import retodaw.modelo.services.EmpresaService;
 import retodaw.modelo.services.VacanteService;
@@ -103,6 +105,29 @@ public class EmpresaController {
                 .map(EmpresaMapper::toDto)
                 .collect(Collectors.toList()));
     }
+    
+    @GetMapping("/vacante/solicitudes/{idEmpresa}")
+    @Operation(summary = "Solicitudes recibidas por una empresa", description = "Devuelve una lista de solicitudes recibidas a través de las vacantes de una empresa específica")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Solicitudes obtenidas con éxito"),
+        @ApiResponse(responseCode = "404", description = "Empresa no encontrada o sin vacantes"),
+        @ApiResponse(responseCode = "500", description = "Error al obtener las solicitudes")
+    })
+    public ResponseEntity<List<SolicitudDto>> obtenerSolicitudesRecibidasPorEmpresa(@PathVariable int idEmpresa) {
+        try {
+            return ResponseEntity.ok(
+                empresaService.obtenerSolicitudesDeEmpresa(idEmpresa)
+                    .stream()
+                    .map(SolicitudMapper::toDto)
+                    .collect(Collectors.toList())
+            );
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
 
   
 
