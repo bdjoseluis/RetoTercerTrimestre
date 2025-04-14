@@ -1,0 +1,35 @@
+services:
+  app:
+    build: .
+    container_name: springboot-app-RetoDaw
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mariadbreto
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadbreto:3306/vacantes_BBDD_2025_RETO
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: joseluis
+    networks:
+      - RetoDaw-network
+    command: ["./wait-for-it.sh", "mariadbreto:3306", "--", "java", "-jar", "RetoDaw.war"]
+
+  mariadbreto:
+    image: mariadb:11.6
+    container_name: mariadbreto
+    restart: always
+    environment:
+      MARIADB_DATABASE: vacantes_BBDD_2025_RETO
+      MARIADB_ROOT_PASSWORD: joseluis
+    ports:
+      - "3307:3306"  # Puerto 3307 en el host para evitar conflicto con tu otra MariaDB
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - RetoDaw-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  RetoDaw-network:
