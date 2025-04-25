@@ -66,8 +66,40 @@ public class Vacante {
     
 	
 	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
 	public Vacante() {
 		super();
+	}
+
+	public Vacante(int idVacante, String nombre, String descripcion, Date fecha, double salario, Estatus estatus,
+			Byte destacado, String imagen, String detalles, Categoria categoria, Empresa empresa) {
+		super();
+		this.idVacante = idVacante;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.fecha = fecha;
+		this.salario = salario;
+		this.estatus = estatus;
+		this.destacado = destacado;
+		this.imagen = imagen;
+		this.detalles = detalles;
+		this.categoria = categoria;
+		this.empresa = empresa;
 	}
 
 	public Vacante(String nombre, String descripcion, Date fecha, double salario, Estatus estatus, Byte destacado,
@@ -82,6 +114,7 @@ public class Vacante {
 		this.imagen = imagen;
 		this.detalles = detalles;
 	}
+	
 
 	public int getIdVacante() {
 		return idVacante;
