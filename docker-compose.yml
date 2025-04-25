@@ -32,5 +32,5 @@ volumes:
   mariadb_data:
 
 networks:
-  RetoDaw-network:
+  RetoDaw-network: 
  
