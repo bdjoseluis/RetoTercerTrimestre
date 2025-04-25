@@ -1,19 +1,38 @@
+version: '3.8'
+
 services:
   app:
     build: .
     container_name: springboot-app-RetoDaw
     ports:
-      - "5001:5000"  # Aquí mapeas el puerto 5000 dentro del contenedor a 5001 en el host
+      - "5001:5000"
     depends_on:
       - mariadbreto
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://host.docker.internal:3307/vacantes_BBDD_2025_RETO
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadbreto:3306/vacantes_BBDD_2025_RETO
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: joseluis
     networks:
       - RetoDaw-network
-    command: ["./wait-for-it.sh", "host.docker.internal:3307", "--", "java", "-jar", "RetoDaw.war"]
-    # Este comando espera a la base de datos MariaDB para asegurarse de que esté lista antes de ejecutar la app
+    command: ["./wait-for-it.sh", "mariadbreto:3306", "--", "java", "-jar", "RetoDaw.war"]
+
+  mariadbreto:
+    image: mariadb:11.6
+    container_name: mariadbreto
+    restart: always
+    environment:
+      MARIADB_DATABASE: vacantes_BBDD_2025_RETO
+      MARIADB_ROOT_PASSWORD: joseluis
+    ports:
+      - "3307:3306"  # Puerto 3307 en el host
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - RetoDaw-network
+
+volumes:
+  mariadb_data:
 
 networks:
-  RetoDaw-network: {}
+  RetoDaw-network:
+    driver: bridge
