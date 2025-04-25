@@ -21,14 +21,14 @@ public class UsuarioMapper {
             return null;
         }
 
-        return Usuario.builder()
-            .email(dto.getEmail())
-            .nombre(dto.getNombre())
-            .apellidos(dto.getApellidos())
-            .password(dto.getPassword())
-            .enabled(dto.getEnabled())
-            .fechaRegistro(dto.getFechaRegistro())
-            .rol(dto.getRol())
-            .build();
+        Usuario usuario = new Usuario();
+        usuario.setEmail(dto.getEmail());
+        usuario.setNombre(dto.getNombre());
+        usuario.setApellidos(dto.getApellidos());
+        usuario.setPassword(dto.getPassword());
+        usuario.setEnabled(dto.getEnabled());
+        usuario.setFechaRegistro(dto.getFechaRegistro());
+        usuario.setRol(dto.getRol());
+        return usuario;
     }
 }
