@@ -22,7 +22,7 @@ services:
       MARIADB_DATABASE: vacantes_BBDD_2025_RETO
       MARIADB_ROOT_PASSWORD: joseluis
     ports:
-      - "3307:3306"  # Puerto 3307 en el host para evitar   conflicto con tu otra MariaDB
+      - "3307:3306"  # Puerto 3307 en el host para evitar conflicto con tu otra MariaDB
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
