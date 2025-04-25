@@ -15,6 +15,6 @@ FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/RetoDaw-0.0.1-SNAPSHOT.war RetoDaw.war
 
-EXPOSE 5001
+EXPOSE 5000
 
 ENTRYPOINT ["java", "-jar", "RetoDaw.war"]
