@@ -15,6 +15,7 @@ import java.security.Principal;
 
 @RequestMapping("/auth")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.POST, RequestMethod.OPTIONS}, allowedHeaders = {"Content-Type", "Authorization"})
 public class AuthenticationController {
 
     @Autowired
