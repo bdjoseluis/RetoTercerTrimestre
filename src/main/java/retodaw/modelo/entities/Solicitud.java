@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "Solicitudes")
+@Table(name = "solicitudes")
 public class Solicitud {
 
     @Id
