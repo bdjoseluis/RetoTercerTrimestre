@@ -51,7 +51,7 @@ public class AuthenticationController {
     /**
      * Login con autenticación básica (Spring Security lo maneja automáticamente)
      */
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public ResponseEntity<?> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -67,7 +67,7 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No autenticado.");
         }
-    }
+    }*/
 
     /**
      * Obtener usuario por email
@@ -84,8 +84,8 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/login2")
-    public ResponseEntity<?> loginManual(@RequestBody UsuarioDto loginDto) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UsuarioRegistroDTO loginDto) {
         Usuario user = userService.buscarUno(loginDto.getEmail());
 
         if (user != null && passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
@@ -94,16 +94,4 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
         }
     }
-
-    @PostMapping("/login3")
-    public ResponseEntity<?> loginManual2(@RequestBody UsuarioRegistroDTO loginDto) {
-        Usuario user = userService.buscarUno(loginDto.getEmail());
-
-        if (user != null && passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
-            return ResponseEntity.ok(usuarioMapper.toDto(user));
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
-        }
-    }
-
 }
