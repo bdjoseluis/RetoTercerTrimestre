@@ -24,12 +24,12 @@ public class DataUserConfiguration {
 
         // Consultas para obtener datos del usuario (email = username)
         users.setUsersByUsernameQuery(
-            "SELECT email, password, enabled FROM Usuarios WHERE email = ?"
+            "SELECT email, password, enabled FROM usuarios WHERE email = ?"
         );
 
         // Consulta para obtener roles
         users.setAuthoritiesByUsernameQuery(
-            "SELECT email, rol FROM Usuarios WHERE email = ?"
+            "SELECT email, rol FROM usuarios WHERE email = ?"
         );
 
         return users;
