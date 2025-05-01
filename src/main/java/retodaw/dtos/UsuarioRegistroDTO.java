@@ -4,13 +4,13 @@ import lombok.*;
 
 import java.util.Date;
 
-@Data
-@NoArgsConstructor
 @EqualsAndHashCode(of = "email")
-@Builder
 public class UsuarioRegistroDTO {
     private String email;
     private String password;
+
+    public UsuarioRegistroDTO() {
+    }
 
     public UsuarioRegistroDTO(String email, String password) {
         this.email = email;

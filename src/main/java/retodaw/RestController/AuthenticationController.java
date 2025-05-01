@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import retodaw.dtos.UsuarioDto;
 import retodaw.dtos.UsuarioMapper;
+import retodaw.dtos.UsuarioRegistroDTO;
 import retodaw.modelo.services.UsuarioService;
 import retodaw.modelo.entities.Usuario;
 
@@ -89,6 +90,17 @@ public class AuthenticationController {
 
         if (user != null && passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             return ResponseEntity.ok("Login correcto para usuario: " + user.getEmail());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
+        }
+    }
+
+    @PostMapping("/login3")
+    public ResponseEntity<?> loginManual2(@RequestBody UsuarioRegistroDTO loginDto) {
+        Usuario user = userService.buscarUno(loginDto.getEmail());
+
+        if (user != null && passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            return ResponseEntity.ok(usuarioMapper.toDto(user));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
         }
