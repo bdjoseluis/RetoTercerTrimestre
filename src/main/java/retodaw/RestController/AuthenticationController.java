@@ -51,13 +51,18 @@ public class AuthenticationController {
      * Login con autenticación básica (Spring Security lo maneja automáticamente)
      */
     @GetMapping("/login")
-    public ResponseEntity<String> login() {
+    public ResponseEntity<?> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
-            return ResponseEntity.ok("Autenticación correcta. Usuario: " + userDetails.getUsername());
-        } else if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof String) {
-            // En caso de autenticación básica, el principal puede ser solo el username (String)
-            return ResponseEntity.ok("Autenticación correcta. Usuario: " + authentication.getPrincipal());
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName(); // esto es el username/email
+            Usuario user = userService.buscarUno(email); // tu método que busca en BBDD
+
+            if (user != null) {
+                return ResponseEntity.ok(user); // Devuelve toda la entidad Usuario
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado en base de datos.");
+            }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No autenticado.");
         }
