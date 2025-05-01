@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Solicitudes")
+@Table(name = "solicitudes")
 public class Solicitud {
 
     @Id
