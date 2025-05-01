@@ -83,4 +83,15 @@ public class AuthenticationController {
         }
     }
 
+    @PostMapping("/login2")
+    public ResponseEntity<?> loginManual(@RequestBody UsuarioDto loginDto) {
+        Usuario user = userService.buscarUno(loginDto.getEmail());
+
+        if (user != null && passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            return ResponseEntity.ok("Login correcto para usuario: " + user.getEmail());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
+        }
+    }
+
 }
