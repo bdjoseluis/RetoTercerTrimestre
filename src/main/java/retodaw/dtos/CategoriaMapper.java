@@ -1,9 +1,11 @@
 package retodaw.dtos;
 
+import org.springframework.stereotype.Component;
 import retodaw.modelo.entities.Categoria;
 import retodaw.modelo.entities.Vacante;
 import retodaw.modelo.services.VacanteService;
 
+@Component
 public class CategoriaMapper {
 
 

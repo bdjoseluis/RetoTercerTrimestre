@@ -1,7 +1,9 @@
 package retodaw.dtos;
 
+import org.springframework.stereotype.Component;
 import retodaw.modelo.entities.Usuario;
 
+@Component
 public class UsuarioMapper {
 
     public static UsuarioDto toDto(Usuario usuario) {

@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-@Builder
 @Table(name = "Empresas")
 public class Empresa {
 
@@ -37,6 +34,10 @@ public class Empresa {
         this.direccion_fiscal = direccion_fiscal;
         this.pais = pais;
         this.email = email;
+    }
+
+    public Empresa() {
+
     }
 
     public int getId_empresa() {

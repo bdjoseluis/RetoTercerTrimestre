@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @EqualsAndHashCode(of = "id_empresa")
-@Builder
 public class EmpresaDto {
     private int id_empresa; 
     private String cif; 

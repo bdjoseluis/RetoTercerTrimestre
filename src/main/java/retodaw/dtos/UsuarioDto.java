@@ -8,10 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @EqualsAndHashCode(of = "email")
-@Builder
 public class UsuarioDto {
 	private String email;
 	private String nombre;

@@ -1,9 +1,11 @@
 package retodaw.dtos;
 
+import org.springframework.stereotype.Component;
 import retodaw.modelo.entities.Solicitud;
 import retodaw.modelo.entities.Usuario;
 import retodaw.modelo.entities.Vacante;
 
+@Component
 public class SolicitudMapper {
 
     public static SolicitudDto toDto(Solicitud solicitud) {

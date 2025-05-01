@@ -2,10 +2,7 @@ package retodaw.dtos;
 
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(of = "id_categoria")
-@Builder
 public class CategoriaDto {
     private int id_categoria;
     private String nombre;
