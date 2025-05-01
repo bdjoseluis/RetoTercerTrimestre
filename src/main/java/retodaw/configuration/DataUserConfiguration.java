@@ -59,15 +59,17 @@ public class DataUserConfiguration {
                 //.requestMatchers("/**").permitAll()  // Permitir acceso sin autenticación a todas las rutas
                 */
             	
-            	// Solo usuarios con rol USUARIO o ADMON pueden acceder a /vacantes/**
-                .requestMatchers("/vacantes/**").hasAnyAuthority("USUARIO", "ADMON")  // Solo usuarios con rol USUARIO o ADMON pueden acceder
+            	// Solo usuarios con rol *** CLIENTE *** o ADMON pueden acceder a /vacantes/**
+                .requestMatchers("/vacantes/**").hasAnyAuthority("CLIENTE", "ADMON")  // Solo usuarios con rol CLIENTE o ADMON pueden acceder
                 
                 // Solo usuarios con rol EMPRESA o ADMON pueden acceder a /empresas/**
                 .requestMatchers("/empresas/**").hasAnyAuthority("EMPRESA", "ADMON")  // Solo usuarios con rol EMPRESA o ADMON pueden acceder
 
                 .requestMatchers("/categorias/**").hasAnyAuthority("EMPRESA", "ADMON")
                 .requestMatchers("/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON")
-                .requestMatchers("/usuarios/solicitudes/:id").hasAnyAuthority("EMPRESA", "ADMON", "Cliente")
+                
+                // cambiamos /usuarios/solicitudes/:id por /usuarios/solicitudes/**
+                .requestMatchers("/usuarios/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON", "CLIENTE") // CLIENTE en mayúscula
                 
                 /* linea conflictiva: .requestMatchers("/**").hasAuthority("ADMON") // Los usuarios con rol ADMON pueden acceder a todo lo demás
                 (Significa que todo el sistema está restringido a usuarios con el rol ADMON)
