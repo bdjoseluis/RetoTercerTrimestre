@@ -52,7 +52,9 @@ public class DataUserConfiguration {
             	// faltaba el /auth antes de /signup!!! y añadimos swagger (q necesita v3/api-docs para funcionar)
             	.requestMatchers("/auth/signup", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
             	.requestMatchers("/signup/**").permitAll() // Permitir acceso sin autenticación a la ruta de registro
-            	
+            	.requestMatchers("/auth/**").permitAll() // Permitir acceso sin autenticación a la ruta de registro
+            	.requestMatchers("/auth/login").permitAll() // Permitir acceso sin autenticación a la ruta de registro
+
             	/*Comentado porque era contradictorio
                 //.requestMatchers("/**").permitAll()  // Permitir acceso sin autenticación a todas las rutas
                 */
