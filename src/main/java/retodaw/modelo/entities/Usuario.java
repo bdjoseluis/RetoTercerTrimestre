@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@Builder
 @Table(name = "Usuarios")
 public class Usuario {
 

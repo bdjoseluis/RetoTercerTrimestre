@@ -9,11 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import retodaw.modelo.entities.Estatus;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(of = "idVacante")
-@Builder
 public class VacanteDto {
 	private int idVacante; 
 	private String nombre; 

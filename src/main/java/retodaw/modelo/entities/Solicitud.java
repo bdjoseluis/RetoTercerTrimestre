@@ -6,10 +6,6 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "Solicitudes")
 public class Solicitud {
 
@@ -51,6 +47,10 @@ public class Solicitud {
         this.usuario = usuario;
         this.vacante = vacante;
     }
+
+	public Solicitud() {
+
+	}
 
 	public int getIdSolicitud() {
 		return idSolicitud;

@@ -12,9 +12,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "Categorias")
 public class Categoria {
 
@@ -29,6 +26,10 @@ public class Categoria {
         this.id_categoria = id_categoria;
         this.nombre = nombre;
         this.descripcion = descripcion;
+    }
+
+    public Categoria() {
+
     }
 
     public int getId_categoria() {

@@ -8,13 +8,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import retodaw.modelo.entities.Categoria;
 import retodaw.modelo.entities.Empresa;
 import retodaw.modelo.entities.Estatus;
 import retodaw.modelo.entities.Usuario;
 import retodaw.modelo.entities.Vacante;
 
-
+@Component
 public class VacanteMapper {
 	public static VacanteDto toDto(Vacante vacante) {
         return new VacanteDto(

@@ -5,10 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import retodaw.modelo.entities.Categoria;
 import retodaw.modelo.entities.Empresa;
 
-
+@Component
 public class EmpresaMapper {
 	 public static EmpresaDto toDto(Empresa empresa) {
 	        return new EmpresaDto(

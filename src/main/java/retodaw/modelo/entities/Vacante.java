@@ -7,10 +7,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "Vacantes")
 @Schema(description = "vacantes")
 public class Vacante {
@@ -38,6 +34,7 @@ public class Vacante {
     private String imagen;
     private String detalles;
 
+
     @ManyToOne
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", nullable = false)
     private Categoria categoria;
@@ -45,6 +42,9 @@ public class Vacante {
     @ManyToOne
     @JoinColumn(name = "id_empresa", referencedColumnName = "id_empresa", nullable = false)
     private Empresa empresa;
+
+    public Vacante() {
+    }
 
     public Vacante(int idVacante, String nombre, String descripcion, Date fecha, double salario, Estatus estatus, Byte destacado, String imagen, String detalles, Categoria categoria, Empresa empresa) {
         this.idVacante = idVacante;

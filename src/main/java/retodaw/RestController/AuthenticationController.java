@@ -27,13 +27,16 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UsuarioMapper usuarioMapper;
+
     /**
      * Registro de usuario
      */
     @PostMapping("/signup")
     public ResponseEntity<String> register(@RequestBody UsuarioDto usuarioDto) {
         try {
-            Usuario user = UsuarioMapper.toEntity(usuarioDto);
+            Usuario user = usuarioMapper.toEntity(usuarioDto);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.alta(user);
 
@@ -50,8 +53,7 @@ public class AuthenticationController {
     @GetMapping("/login")
     public ResponseEntity<String> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
             return ResponseEntity.ok("Autenticación correcta. Usuario: " + userDetails.getUsername());
         } else if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof String) {
             // En caso de autenticación básica, el principal puede ser solo el username (String)
