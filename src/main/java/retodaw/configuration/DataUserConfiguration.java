@@ -89,7 +89,7 @@ public class DataUserConfiguration {
             //Activar autenticación básica (envío de usuario-contraseña en cabecera HTTP)
             // Como está deprecated añadimos withDefaults para completar lo que le falte
             .httpBasic(withDefaults())
-            
+
             //Configuramos por último logout
             .logout(logout -> logout.permitAll());
 
