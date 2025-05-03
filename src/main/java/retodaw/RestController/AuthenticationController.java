@@ -84,7 +84,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioRegistroDTO loginDto) {
         Usuario user = userService.buscarUno(loginDto.getEmail());
 
@@ -93,5 +93,18 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
         }
+    } */
+    
+    // nuevo login para probar enviar el usuario com JSON
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UsuarioRegistroDTO loginDto) {
+        Usuario user = userService.buscarUno(loginDto.getEmail());
+
+        if (user != null && passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            return ResponseEntity.ok(user); // Enviar usuario como JSON
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
+        }
     }
+
 }
