@@ -48,6 +48,7 @@ public class AuthenticationController {
         }
     }
 
+    // NO FUNCIONA!!!!
     /**
      * Login con autenticación básica (Spring Security lo maneja automáticamente)
      */
@@ -83,8 +84,8 @@ public class AuthenticationController {
                 .body("Usuario con email " + email + " no encontrado.");
         }
     }
-
-   /* @PostMapping("/login")
+ // UNICO LOGIN Q SÍ FUNCIONA - AJUSTAR EL FRONTEND
+   @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioRegistroDTO loginDto) {
         Usuario user = userService.buscarUno(loginDto.getEmail());
 
@@ -93,10 +94,10 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
         }
-    } */
+    } 
     
-    // nuevo login para probar enviar el usuario com JSON
-    @PostMapping("/login")
+    // NO FUNCIONA!! nuevo login para probar enviar el usuario com JSON
+   /* @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioRegistroDTO loginDto) {
         Usuario user = userService.buscarUno(loginDto.getEmail());
 
@@ -105,6 +106,6 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
         }
-    }
+    } */
 
 }
