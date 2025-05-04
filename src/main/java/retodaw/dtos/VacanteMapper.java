@@ -1,19 +1,8 @@
 package retodaw.dtos;
 
-import java.util.Date;
-
-import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import retodaw.modelo.entities.Categoria;
 import retodaw.modelo.entities.Empresa;
-import retodaw.modelo.entities.Estatus;
-import retodaw.modelo.entities.Usuario;
 import retodaw.modelo.entities.Vacante;
-
 
 public class VacanteMapper {
 	public static VacanteDto toDto(Vacante vacante) {
@@ -36,8 +25,6 @@ public class VacanteMapper {
         if (dto == null) {
             return null;
         }
-        
-
 
         Vacante vacante = new Vacante(
         		dto.getIdVacante(),
@@ -55,4 +42,5 @@ public class VacanteMapper {
         
         return vacante;
     }
+
 }

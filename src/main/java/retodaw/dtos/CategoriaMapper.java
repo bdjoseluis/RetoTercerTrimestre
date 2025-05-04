@@ -1,11 +1,8 @@
 package retodaw.dtos;
 
 import retodaw.modelo.entities.Categoria;
-import retodaw.modelo.entities.Vacante;
-import retodaw.modelo.services.VacanteService;
 
 public class CategoriaMapper {
-
 
     public static CategoriaDto toDto(Categoria categoria) {
         return new CategoriaDto(
@@ -20,7 +17,6 @@ public class CategoriaMapper {
             return null;
         }
 
-
         Categoria categoria = new Categoria(
             dto.getId_categoria(),
             dto.getNombre(),
@@ -29,4 +25,5 @@ public class CategoriaMapper {
 
         return categoria;
     }
+
 }

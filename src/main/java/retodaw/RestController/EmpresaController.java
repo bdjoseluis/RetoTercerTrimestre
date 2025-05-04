@@ -23,7 +23,6 @@ import retodaw.dtos.EmpresaDto;
 import retodaw.dtos.EmpresaMapper;
 import retodaw.dtos.SolicitudDto;
 import retodaw.dtos.SolicitudMapper;
-import retodaw.modelo.repository.VacanteRepository;
 import retodaw.modelo.services.EmpresaService;
 import retodaw.modelo.services.VacanteService;
 

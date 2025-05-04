@@ -5,21 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import retodaw.modelo.entities.Empresa;
 import retodaw.modelo.entities.Solicitud;
 import retodaw.modelo.entities.Usuario;
-import retodaw.modelo.repository.EmpresaRepository;
 import retodaw.modelo.repository.SolicitudRepository;
 import retodaw.modelo.repository.UsuarioRepository;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
+
 	@Autowired
     private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private SolicitudRepository solicitudRepository;
-    
+
     @Override
     public Usuario alta(Usuario usuario) {
         try {
@@ -75,6 +74,5 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         return solicitudRepository.findByUsuario(usuario);
     }
-
 
 }

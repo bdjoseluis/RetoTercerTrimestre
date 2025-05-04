@@ -1,7 +1,6 @@
 package retodaw.modelo.services;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +13,18 @@ import retodaw.modelo.repository.EmpresaRepository;
 import retodaw.modelo.repository.SolicitudRepository;
 import retodaw.modelo.repository.VacanteRepository;
 
-
 @Service
 public class EmpresaServiceImpl implements EmpresaService{
-	
+
 	@Autowired
     private EmpresaRepository empresaRepository;
-	
+
 	@Autowired
 	private VacanteRepository vacanteRepository;
-	
+
 	@Autowired
 	private SolicitudRepository solicitudRepository;
-    
+
     @Override
     public Empresa alta(Empresa empresa) {
         try {
