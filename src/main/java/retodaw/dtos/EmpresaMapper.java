@@ -1,13 +1,6 @@
 package retodaw.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import retodaw.modelo.entities.Categoria;
 import retodaw.modelo.entities.Empresa;
-
 
 public class EmpresaMapper {
 	 public static EmpresaDto toDto(Empresa empresa) {
@@ -34,7 +27,8 @@ public class EmpresaMapper {
 	        		dto.getPais(),
 	        		dto.getEmail() 
 	        );
-	        
+
 	        return empresa;
 	    }
+
 }
