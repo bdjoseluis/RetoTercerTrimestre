@@ -7,10 +7,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "vacantes")
 @Schema(description = "vacantes")
 public class Vacante {
@@ -45,4 +41,110 @@ public class Vacante {
     @ManyToOne
     @JoinColumn(name = "id_empresa", referencedColumnName = "id_empresa", nullable = false)
     private Empresa empresa;
+
+
+    public Vacante() {
+    }
+
+    public Vacante(int idVacante, String nombre, String descripcion, Date fecha, double salario, Estatus estatus, Byte destacado, String imagen, String detalles, Categoria categoria, Empresa empresa) {
+        this.idVacante = idVacante;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.salario = salario;
+        this.estatus = estatus;
+        this.destacado = destacado;
+        this.imagen = imagen;
+        this.detalles = detalles;
+        this.categoria = categoria;
+        this.empresa = empresa;
+    }
+
+    public int getIdVacante() {
+        return idVacante;
+    }
+
+    public void setIdVacante(int idVacante) {
+        this.idVacante = idVacante;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public Estatus getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(Estatus estatus) {
+        this.estatus = estatus;
+    }
+
+    public Byte getDestacado() {
+        return destacado;
+    }
+
+    public void setDestacado(Byte destacado) {
+        this.destacado = destacado;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
 }
