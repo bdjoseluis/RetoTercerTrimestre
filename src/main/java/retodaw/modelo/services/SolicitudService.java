@@ -9,5 +9,8 @@ public interface SolicitudService {
 	Solicitud modificar(Solicitud vacante);
     int eliminar(int id);
     Solicitud buscarUna(int id);
+
     List<Solicitud> buscarTodos();
+    List<Solicitud> obtenerSolicitudesPorUsuario(String email);
+    List<Solicitud> obtenerSolicitudesPorVacante(int idVacante);
 }
