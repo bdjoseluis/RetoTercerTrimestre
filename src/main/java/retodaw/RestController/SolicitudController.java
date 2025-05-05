@@ -112,4 +112,46 @@ public class SolicitudController {
                 .map(SolicitudMapper::toDto)
                 .collect(Collectors.toList()));
     }
+
+ // List<Solicitud> findByUsuario(Usuario usuario);
+    @Operation(summary = "Buscar solicitudes por usuario", description = "Obtiene las solicitudes realizadas por un usuario específico mediante su email")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Solicitudes encontradas"),
+        @ApiResponse(responseCode = "404", description = "Usuario no encontrado"),
+        @ApiResponse(responseCode = "500", description = "Error al buscar las solicitudes")
+    })
+    @GetMapping("/usuario/{email}")
+    public ResponseEntity<List<SolicitudDto>> buscarPorUsuario(@PathVariable String email) {
+    	List<Solicitud> solicitudes = solicitudService.obtenerSolicitudesPorUsuario(email);
+    	if (solicitudes.isEmpty()) {
+    		return ResponseEntity.notFound().build();
+    	}
+    	
+    	return ResponseEntity.ok(
+    		solicitudes.stream()
+    			.map(SolicitudMapper::toDto) // igual que .map(solicitud -> SolicitudMapper.toDto(solicitud))
+    			.collect(Collectors.toList())
+    	);
+    }   
+
+    // List<Solicitud> findByVacante(Vacante vacante);
+    @GetMapping("/vacante/{idVacante}")
+    @Operation(summary = "Buscar solicitudes por vacante", description = "Obtiene las solicitudes realizadas para una vacante específica")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Solicitudes encontradas"),
+        @ApiResponse(responseCode = "404", description = "Vacante no encontrada o sin solicitudes"),
+        @ApiResponse(responseCode = "500", description = "Error al buscar las solicitudes")
+    })
+    public ResponseEntity<List<SolicitudDto>> buscarPorVacante(@PathVariable int idVacante){
+    	List<Solicitud> solicitudes = solicitudService.obtenerSolicitudesPorVacante(idVacante);
+    	if (solicitudes.isEmpty()) {
+    		return ResponseEntity.notFound().build();
+    	}
+    	
+    	return ResponseEntity.ok(
+    		solicitudes.stream()
+    			.map(SolicitudMapper::toDto)
+    			.collect(Collectors.toList())
+    	);
+    }
 }
