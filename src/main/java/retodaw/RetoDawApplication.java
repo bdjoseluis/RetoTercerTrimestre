@@ -25,7 +25,7 @@ public class RetoDawApplication {
                         .contact(new Contact()
                                 .name("Reto Daw")
                                 .email("")
-                                .url("http://localhost:8087/swagger-ui/index.html"))
+                                .url("http://localhost:5001/swagger-ui/index.html"))
                         .version("1.0"));
     }
 
