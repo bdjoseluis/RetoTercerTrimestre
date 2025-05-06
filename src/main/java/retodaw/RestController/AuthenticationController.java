@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import retodaw.dtos.UsuarioDto;
 import retodaw.dtos.UsuarioMapper;
 import retodaw.dtos.UsuarioRegistroDTO;
@@ -14,10 +15,10 @@ import retodaw.modelo.entities.Usuario;
 
 import java.security.Principal;
 
-@RequestMapping("/auth")
+@Tag(name = "Auth Controller", description = "Autenticación y registro de usuarios")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.POST,
-		RequestMethod.OPTIONS }, allowedHeaders = { "Content-Type", "Authorization" })
+@CrossOrigin(origins = "*")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
 	@Autowired
@@ -46,30 +47,20 @@ public class AuthenticationController {
 	/**
 	 * Login con autenticación básica (Spring Security lo maneja automáticamente)
 	 */
-
-	// Login con autenticación básica (Spring Security lo maneja automáticamente)
 	@GetMapping("/login")
-	public ResponseEntity<String> authenticate(Principal principal) {
+	public ResponseEntity<?> authenticate(Principal principal) {
 		if (principal != null) {
-			Usuario user = userService.buscarUno(principal.getName());
+			Usuario user = userService.buscarUno(principal. getName());
 			if (user != null) {
-				UsuarioRegistroDTO dto = new UsuarioRegistroDTO(user.getEmail(), user.getRol());
-				return ResponseEntity
-						.ok("Autenticación correcta. Usuario: " + dto.getEmail() + " con rol: " + user.getRol());
+				UsuarioRegistroDTO dto = new UsuarioRegistroDTO(user.getEmail(), null); // password null para mayor seguridad
+				return ResponseEntity.ok(dto);
 			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado.");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
 			}
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
 		}
 	}
-	/*
-	 * version anterior sin roles public ResponseEntity<String>
-	 * authenticate(Principal principal) { if (principal != null) { return
-	 * ResponseEntity.ok("Autenticación correcta. Usuario: " + principal.getName());
-	 * } else { return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
-	 * body("Credenciales incorrectas."); } }
-	 */
 
 	/**
 	 * Obtener usuario por email
