@@ -87,4 +87,14 @@ public class EmpresaServiceImpl implements EmpresaService{
             .collect(Collectors.toList());
     }
 
+	@Override
+	public Empresa buscarPorEmail(String email) {
+		try {
+		return empresaRepository.findByEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
