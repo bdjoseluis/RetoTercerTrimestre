@@ -10,7 +10,6 @@ import retodaw.modelo.entities.Solicitud;
 import retodaw.modelo.entities.Usuario;
 import retodaw.modelo.entities.Vacante;
 
-@Hidden
 @Repository
 public interface SolicitudRepository extends JpaRepository <Solicitud, Integer>{
 
