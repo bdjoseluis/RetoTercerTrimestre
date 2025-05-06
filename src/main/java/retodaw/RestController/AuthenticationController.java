@@ -19,8 +19,6 @@ import java.security.Principal;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/auth")
-//@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.POST,
-//		RequestMethod.OPTIONS }, allowedHeaders = { "Content-Type", "Authorization" })
 public class AuthenticationController {
 
 	@Autowired
@@ -49,8 +47,6 @@ public class AuthenticationController {
 	/**
 	 * Login con autenticación básica (Spring Security lo maneja automáticamente)
 	 */
-
-	// Login con autenticación básica (Spring Security lo maneja automáticamente)
 	@GetMapping("/login")
 	public ResponseEntity<?> authenticate(Principal principal) {
 		if (principal != null) {
