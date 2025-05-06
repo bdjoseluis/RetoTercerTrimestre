@@ -23,6 +23,7 @@ import retodaw.dtos.EmpresaDto;
 import retodaw.dtos.EmpresaMapper;
 import retodaw.dtos.SolicitudDto;
 import retodaw.dtos.SolicitudMapper;
+import retodaw.modelo.entities.Empresa;
 import retodaw.modelo.services.EmpresaService;
 import retodaw.modelo.services.VacanteService;
 
@@ -127,7 +128,20 @@ public class EmpresaController {
         }
     }
 
-
+    @GetMapping("/email/{email}")
+    @Operation(summary = "Buscar una empresa por email", description = "obtiene los datos de una emprea por su email")
+    @ApiResponses({
+    	@ApiResponse(responseCode = "200", description = "Empresa encontrada"),
+    	@ApiResponse(responseCode = "404", description = "Empresa no encontrada"),
+    	@ApiResponse(responseCode = "500", description = "Error al buscar la empresa")
+    })
+    public ResponseEntity<EmpresaDto> buscarPorEmail(@PathVariable String email) {
+    	Empresa empresa = empresaService.buscarPorEmail(email);
+    	if (empresa == null) {
+    		return ResponseEntity.notFound().build();
+    	}
+    	return ResponseEntity.ok(EmpresaMapper.toDto(empresa));
+    }
   
 
 }

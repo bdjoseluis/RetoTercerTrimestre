@@ -11,6 +11,8 @@ public interface EmpresaService {
 	Empresa modificar(Empresa vacante);
     int eliminar(int id);
     Empresa buscarUna(int id);
+    Empresa buscarPorEmail(String email);
+
     List<Empresa> buscarTodos();
 	List<Solicitud> obtenerSolicitudesDeEmpresa(int idEmpresa);
 
