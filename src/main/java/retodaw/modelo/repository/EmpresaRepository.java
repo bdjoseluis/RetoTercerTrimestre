@@ -8,5 +8,7 @@ import retodaw.modelo.entities.Empresa;
 @Hidden
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
+	
+	Empresa findByEmail(String email);
 
 }
