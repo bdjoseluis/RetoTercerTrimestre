@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import io.swagger.v3.oas.annotations.Hidden;
 import retodaw.modelo.entities.Empresa;
 
-@Hidden
+
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Integer>{
 
