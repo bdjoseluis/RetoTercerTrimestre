@@ -13,5 +13,8 @@ public interface EmpresaService {
     Empresa buscarUna(int id);
     List<Empresa> buscarTodos();
 	List<Solicitud> obtenerSolicitudesDeEmpresa(int idEmpresa);
+	
+	//método nuevo
+	Empresa buscarPorEmail(String email);
 
 }
