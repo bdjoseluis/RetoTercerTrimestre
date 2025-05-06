@@ -11,8 +11,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import java.util.List;
+
+// Configuración principal de seguridad con Spring Security (políticas de autenticación, autorización y CORS)
 @Configuration
 @EnableWebSecurity
 public class DataUserConfiguration {
@@ -22,72 +29,63 @@ public class DataUserConfiguration {
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
 
         // Consultas para obtener datos del usuario (email = username)
-        users.setUsersByUsernameQuery(
-            "SELECT email, password, enabled FROM usuarios WHERE email = ?"
-        );
+        users.setUsersByUsernameQuery("SELECT email, password, enabled FROM usuarios WHERE email = ?");
 
         // Consulta para obtener roles
-        users.setAuthoritiesByUsernameQuery(
-            "SELECT email, rol FROM usuarios WHERE email = ?"
-        );
+        users.setAuthoritiesByUsernameQuery("SELECT email, rol FROM usuarios WHERE email = ?");
 
         return users;
     }
 
     // Configuración de PasswordEncoder (BCrypt)
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // añadido SuppressWarnings("removal") ya que httpBasic fue suprimido pero aún funciona, para evitar error de deprecated
+    // Configuracion de seguridad (filtros y permisos)
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable()) // Deshabilitar CSRF (para permitir peticiones desde el frontend)
-            .authorizeHttpRequests(auth -> auth
-            	// Permitir acceso sin autenticación a rutas públicas
-            	// faltaba el /auth antes de /signup!!! y añadimos swagger (q necesita v3/api-docs para funcionar)
-            	.requestMatchers("/auth/signup", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            	.requestMatchers("/signup/**").permitAll() // Permitir acceso sin autenticación a la ruta de registro
+        http.csrf(csrf -> csrf.disable()) // Deshabilitar CSRF (para permitir peticiones desde el frontend)
+                .cors(withDefaults())
 
-            	/*Comentado porque era contradictorio
-                //.requestMatchers("/**").permitAll()  // Permitir acceso sin autenticación a todas las rutas
-                */
+                .authorizeHttpRequests(auth -> auth
+                        // Rutas publicas
+                        .requestMatchers("/auth/signup", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/signup/**").permitAll()
 
-            	// Solo usuarios con rol USUARIO o ADMON pueden acceder a /vacantes/**
-                .requestMatchers("/vacantes/**").hasAnyAuthority("CLIENTE", "ADMON")  // Solo usuarios con rol USUARIO o ADMON pueden acceder
+                        // Rutas privadas
+                        .requestMatchers("/vacantes/**").hasAnyAuthority("CLIENTE", "ADMON")
+                        .requestMatchers("/empresas/**").hasAnyAuthority("EMPRESA", "ADMON")
+                        .requestMatchers("/categorias/**").hasAnyAuthority("EMPRESA", "ADMON")
+                        .requestMatchers("/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON")
+                        .requestMatchers("/usuarios/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON", "CLIENTE")
 
-                // Solo usuarios con rol EMPRESA o ADMON pueden acceder a /empresas/**
-                .requestMatchers("/empresas/**").hasAnyAuthority("EMPRESA", "ADMON")  // Solo usuarios con rol EMPRESA o ADMON pueden acceder
+                        // Cualquier otra solicitud requiere autenticacion
+                        .anyRequest().authenticated())
 
-                .requestMatchers("/categorias/**").hasAnyAuthority("EMPRESA", "ADMON")
-                .requestMatchers("/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON")
-                .requestMatchers("/usuarios/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON", "CLIENTE")
-                /* linea conflictiva: .requestMatchers("/**").hasAuthority("ADMON") // Los usuarios con rol ADMON pueden acceder a todo lo demás
-                (Significa que todo el sistema está restringido a usuarios con el rol ADMON)
-                */
-                .anyRequest().authenticated()
-            )
+                // Activar autenticación básica (envío de usuario-contraseña en cabecera HTTP)
+                // Como está deprecated añadimos withDefaults para completar lo que le falte
+                .httpBasic(withDefaults())
 
-            /*
-            .formLogin(form -> form
-                .defaultSuccessUrl("/login")
-                .failureUrl("/login-error")
-                .permitAll()
-            )
-            Esto ha sido comentado porque nos daba error y no permitía hacer las peticiones desde Angular. 
-            En su lugar utilizaremmos httpBasic()
-            */
-
-            //Activar autenticación básica (envío de usuario-contraseña en cabecera HTTP)
-            // Como está deprecated añadimos withDefaults para completar lo que le falte
-            .httpBasic(withDefaults())
-
-            //Configuramos por último logout
-            .logout(logout -> logout.permitAll());
+                // Configuramos por último logout
+                .logout(logout -> logout.permitAll());
 
         return http.build();
+    }
+
+    // Configuración de CORS para permitir las peticiones del frontend
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*", "Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 }

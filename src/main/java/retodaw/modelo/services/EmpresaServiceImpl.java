@@ -16,21 +16,21 @@ import retodaw.modelo.repository.VacanteRepository;
 @Service
 public class EmpresaServiceImpl implements EmpresaService{
 
-	@Autowired
+    @Autowired
     private EmpresaRepository empresaRepository;
 
-	@Autowired
-	private VacanteRepository vacanteRepository;
+    @Autowired
+    private VacanteRepository vacanteRepository;
 
-	@Autowired
-	private SolicitudRepository solicitudRepository;
+    @Autowired
+    private SolicitudRepository solicitudRepository;
 
     @Override
     public Empresa alta(Empresa empresa) {
         try {
             if (empresaRepository.existsById(empresa.getId_empresa()))
                 return null;
-            else  
+            else
                 return empresaRepository.save(empresa);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class EmpresaServiceImpl implements EmpresaService{
         try {
             if (empresaRepository.existsById(empresa.getId_empresa()))
                 return empresaRepository.save(empresa);
-            else  
+            else
                 return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +55,7 @@ public class EmpresaServiceImpl implements EmpresaService{
     public int eliminar(int id) {
         try {
             if (empresaRepository.existsById(id)) {
-            	empresaRepository.deleteById(id);
+                empresaRepository.deleteById(id);
                 return 1;
             }
             return 0;
@@ -78,13 +78,23 @@ public class EmpresaServiceImpl implements EmpresaService{
     @Override
     public List<Solicitud> obtenerSolicitudesDeEmpresa(int idEmpresa) {
         Empresa empresa = empresaRepository.findById(idEmpresa)
-            .orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
+                .orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
 
         List<Vacante> vacantes = vacanteRepository.findByEmpresa(empresa);
 
         return vacantes.stream()
-            .flatMap(v -> solicitudRepository.findByVacante(v).stream())
-            .collect(Collectors.toList());
+                .flatMap(v -> solicitudRepository.findByVacante(v).stream())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Empresa buscarPorEmail(String email) {
+        try {
+            return empresaRepository.findByEmail(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

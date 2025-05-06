@@ -38,8 +38,8 @@ public class SolicitudController {
     @PostMapping("/alta")
     @Operation(summary = "Dar de alta una solicitud", description = "Registra una nueva solicitud")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Solicitud registrada con éxito"),
-        @ApiResponse(responseCode = "500", description = "Error al registrar la solicitud")
+            @ApiResponse(responseCode = "200", description = "Solicitud registrada con éxito"),
+            @ApiResponse(responseCode = "500", description = "Error al registrar la solicitud")
     })
     public ResponseEntity<SolicitudDto> alta(@RequestBody SolicitudDto solicitudDto) {
         Usuario usuario = usuarioService.buscarUno(solicitudDto.getEmail());
@@ -59,9 +59,9 @@ public class SolicitudController {
     @PutMapping("/modificar")
     @Operation(summary = "Modificar una solicitud", description = "Actualiza los datos de una solicitud existente.")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Solicitud modificada con éxito"),
-        @ApiResponse(responseCode = "404", description = "Solicitud no encontrada"),
-        @ApiResponse(responseCode = "500", description = "Error al modificar la solicitud")
+            @ApiResponse(responseCode = "200", description = "Solicitud modificada con éxito"),
+            @ApiResponse(responseCode = "404", description = "Solicitud no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error al modificar la solicitud")
     })
     public ResponseEntity<SolicitudDto> modificar(@RequestBody SolicitudDto solicitudDto) {
         Usuario usuario = usuarioService.buscarUno(solicitudDto.getEmail());
@@ -81,9 +81,9 @@ public class SolicitudController {
     @DeleteMapping("/eliminar/{idSolicitud}")
     @Operation(summary = "Eliminar una solicitud", description = "Borra una solicitud por su id")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Solicitud eliminada con éxito"),
-        @ApiResponse(responseCode = "404", description = "Solicitud no encontrada"),
-        @ApiResponse(responseCode = "500", description = "Error al eliminar la solicitud")
+            @ApiResponse(responseCode = "200", description = "Solicitud eliminada con éxito"),
+            @ApiResponse(responseCode = "404", description = "Solicitud no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error al eliminar la solicitud")
     })
     public ResponseEntity<Integer> eliminar(@PathVariable int idSolicitud) {
         return ResponseEntity.ok(solicitudService.eliminar(idSolicitud));
@@ -92,9 +92,9 @@ public class SolicitudController {
     @GetMapping("/uno/{idSolicitud}")
     @Operation(summary = "Buscar una solicitud", description = "Obtiene los datos de una solicitud por su id")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Solicitud encontrada"),
-        @ApiResponse(responseCode = "404", description = "Solicitud no encontrada"),
-        @ApiResponse(responseCode = "500", description = "Error al buscar la solicitud")
+            @ApiResponse(responseCode = "200", description = "Solicitud encontrada"),
+            @ApiResponse(responseCode = "404", description = "Solicitud no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error al buscar la solicitud")
     })
     public ResponseEntity<SolicitudDto> buscarUno(@PathVariable int idSolicitud) {
         return ResponseEntity.ok(SolicitudMapper.toDto(solicitudService.buscarUna(idSolicitud)));
@@ -103,13 +103,55 @@ public class SolicitudController {
     @GetMapping("/todos")
     @Operation(summary = "Listar todas las solicitudes", description = "Devuelve una lista con todas las solicitudes")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Lista obtenida con éxito"),
-        @ApiResponse(responseCode = "500", description = "Error al obtener la lista de solicitudes")
+            @ApiResponse(responseCode = "200", description = "Lista obtenida con éxito"),
+            @ApiResponse(responseCode = "500", description = "Error al obtener la lista de solicitudes")
     })
     public ResponseEntity<List<SolicitudDto>> buscarTodos() {
         return ResponseEntity.ok(solicitudService.buscarTodos()
                 .stream()
                 .map(SolicitudMapper::toDto)
                 .collect(Collectors.toList()));
+    }
+
+    // List<Solicitud> findByUsuario(Usuario usuario);
+    @Operation(summary = "Buscar solicitudes por usuario", description = "Obtiene las solicitudes realizadas por un usuario específico mediante su email")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Solicitudes encontradas"),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error al buscar las solicitudes")
+    })
+    @GetMapping("/usuario/{email}")
+    public ResponseEntity<List<SolicitudDto>> buscarPorUsuario(@PathVariable String email) {
+        List<Solicitud> solicitudes = solicitudService.obtenerSolicitudesPorUsuario(email);
+        if (solicitudes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(
+                solicitudes.stream()
+                        .map(SolicitudMapper::toDto) // igual que .map(solicitud -> SolicitudMapper.toDto(solicitud))
+                        .collect(Collectors.toList())
+        );
+    }
+
+    // List<Solicitud> findByVacante(Vacante vacante);
+    @GetMapping("/vacante/{idVacante}")
+    @Operation(summary = "Buscar solicitudes por vacante", description = "Obtiene las solicitudes realizadas para una vacante específica")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Solicitudes encontradas"),
+            @ApiResponse(responseCode = "404", description = "Vacante no encontrada o sin solicitudes"),
+            @ApiResponse(responseCode = "500", description = "Error al buscar las solicitudes")
+    })
+    public ResponseEntity<List<SolicitudDto>> buscarPorVacante(@PathVariable int idVacante){
+        List<Solicitud> solicitudes = solicitudService.obtenerSolicitudesPorVacante(idVacante);
+        if (solicitudes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(
+                solicitudes.stream()
+                        .map(SolicitudMapper::toDto)
+                        .collect(Collectors.toList())
+        );
     }
 }
