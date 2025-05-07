@@ -17,7 +17,7 @@ import java.security.Principal;
 
 @Tag(name = "Auth Controller", description = "Autenticación y registro de usuarios")
 @RestController
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RequestMapping("/auth")
 public class AuthenticationController {
 

@@ -75,7 +75,7 @@ public class DataUserConfiguration {
     }
 
     // Configuración de CORS para permitir las peticiones del frontend
-    @Bean
+   /*@Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
@@ -86,6 +86,6 @@ public class DataUserConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
+    }*/
 
 }
