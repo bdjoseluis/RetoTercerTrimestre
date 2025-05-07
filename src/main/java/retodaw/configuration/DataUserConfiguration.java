@@ -47,7 +47,7 @@ public class DataUserConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable()) // Deshabilitar CSRF (para permitir peticiones desde el frontend)
-                .cors(withDefaults())
+                //.cors(withDefaults())
 
                 .authorizeHttpRequests(auth -> auth
                         // Rutas publicas
