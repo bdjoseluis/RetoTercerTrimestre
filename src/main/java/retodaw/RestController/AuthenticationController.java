@@ -52,7 +52,7 @@ public class AuthenticationController {
 		if (principal != null) {
 			Usuario user = userService.buscarUno(principal. getName());
 			if (user != null) {
-				UsuarioRegistroDTO dto = new UsuarioRegistroDTO(user.getEmail(), null); // password null para mayor seguridad
+				UsuarioRegistroDTO dto = new UsuarioRegistroDTO(user.getEmail(), user.getPassword());
 				return ResponseEntity.ok(dto);
 			} else {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
