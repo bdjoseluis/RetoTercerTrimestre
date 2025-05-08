@@ -15,6 +15,7 @@ public class Solicitud {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_solicitud")
     private int idSolicitud;
 
     @Column(nullable = false)
