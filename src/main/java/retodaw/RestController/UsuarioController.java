@@ -91,7 +91,7 @@ public class UsuarioController {
                 .collect(Collectors.toList()));
     }
     
-    @GetMapping("/usuario/solicitudes/{email}")
+   /* @GetMapping("/usuario/solicitudes/{email}")
     @Operation(summary = "Solicitudes por usuario", description = "Devuelve una lista con las solicitudes realizadas por un usuario concreto")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Lista obtenida con éxito"),
@@ -106,6 +106,6 @@ public class UsuarioController {
                 .collect(Collectors.toList())
         );
     }
-
+*/
 
 }

@@ -58,8 +58,8 @@ public class DataUserConfiguration {
                         .requestMatchers("/vacantes/**").hasAnyAuthority("CLIENTE", "ADMON")
                         .requestMatchers("/empresas/**").hasAnyAuthority("EMPRESA", "ADMON")
                         .requestMatchers("/categorias/**").hasAnyAuthority("EMPRESA", "ADMON")
+                        .requestMatchers("/solicitudes/usuario/**").hasAnyAuthority( "ADMON", "CLIENTE")
                         .requestMatchers("/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON")
-                        .requestMatchers("/usuarios/solicitudes/**").hasAnyAuthority("EMPRESA", "ADMON", "CLIENTE")
 
                         // Cualquier otra solicitud requiere autenticacion
                         .anyRequest().authenticated())
