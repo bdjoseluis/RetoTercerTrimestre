@@ -31,6 +31,7 @@ public class SolicitudServiceImpl implements SolicitudService{
             else  
                 return solicitudRepository.save(solicitud);
         } catch (Exception e) {
+        	//e.getMessage();
             e.printStackTrace();
             return null;
         }

@@ -19,8 +19,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import retodaw.dtos.SolicitudDto;
-import retodaw.dtos.SolicitudMapper;
 import retodaw.dtos.UsuarioDto;
 import retodaw.dtos.UsuarioMapper;
 import retodaw.modelo.services.UsuarioService;
@@ -90,22 +88,5 @@ public class UsuarioController {
                 .map(UsuarioMapper::toDto)
                 .collect(Collectors.toList()));
     }
-    
-    @GetMapping("/usuario/solicitudes/{email}")
-    @Operation(summary = "Solicitudes por usuario", description = "Devuelve una lista con las solicitudes realizadas por un usuario concreto")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Lista obtenida con éxito"),
-        @ApiResponse(responseCode = "404", description = "Usuario no encontrado o sin solicitudes"),
-        @ApiResponse(responseCode = "500", description = "Error al obtener las solicitudes del usuario")
-    })
-    public ResponseEntity<List<SolicitudDto>> solicitudesRealizadasPorUsuario(@PathVariable String email) {
-        return ResponseEntity.ok(
-            usuarioService.obtenerSolicitudesPorUsuario(email)
-                .stream()
-                .map(SolicitudMapper::toDto)
-                .collect(Collectors.toList())
-        );
-    }
-
 
 }
