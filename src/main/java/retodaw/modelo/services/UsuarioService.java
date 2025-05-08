@@ -12,6 +12,5 @@ public interface UsuarioService {
     int eliminar(String email);
     Usuario buscarUno(String email);
     List<Usuario> buscarTodos();
-	List<Solicitud> obtenerSolicitudesPorUsuario(String email);
 
 }
