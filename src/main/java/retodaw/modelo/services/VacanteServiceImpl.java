@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import retodaw.modelo.entities.Empresa;
 import retodaw.modelo.entities.Vacante;
 import retodaw.modelo.repository.VacanteRepository;
 
@@ -65,8 +66,7 @@ public class VacanteServiceImpl implements VacanteService{
 
 	@Override
 	public List<Vacante> vacantesPorEmpresa(int id_empresa) {
-		vacanteRepository.findByEmpresaId(id_empresa);
-		return null;
+        return vacanteRepository.findByEmpresaId(id_empresa);
 	}
 
 }
