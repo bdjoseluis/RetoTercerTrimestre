@@ -55,7 +55,7 @@ public class DataUserConfiguration {
                         .requestMatchers("/signup/**").permitAll()
 
                         // Rutas privadas
-                        .requestMatchers("/vacantes/**").hasAnyAuthority("CLIENTE", "ADMON")
+                        .requestMatchers("/vacantes/**").hasAnyAuthority("CLIENTE", "ADMON", "EMPRESA")
                         .requestMatchers("/empresas/**").hasAnyAuthority("EMPRESA", "ADMON")
                         .requestMatchers("/categorias/**").hasAnyAuthority("EMPRESA", "ADMON")
                         //.requestMatchers("/solicitudes/usuario/**").hasAnyAuthority( "ADMON", "CLIENTE")
