@@ -35,7 +35,7 @@ public class VacanteController {
 
     @Autowired
     VacanteService vacanteService;
-    
+
     @Autowired
     EmpresaService empresaService;
     
@@ -98,6 +98,21 @@ public class VacanteController {
     })
     public ResponseEntity<List<VacanteDto>> buscarTodos() {
         return ResponseEntity.ok(vacanteService.buscarTodos()
+                .stream()
+                .map(VacanteMapper::toDto)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/empresa/{idEmpresa}")
+    @Operation(summary = "Listar vacantes por empresa", description = "Devuelve una lista de vacantes asociadas a un ID de empresa.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de vacantes obtenida con éxito."),
+            @ApiResponse(responseCode = "404", description = "No se encontraron vacantes para la empresa especificada."),
+            @ApiResponse(responseCode = "500", description = "Error al obtener la lista de vacantes por empresa.")
+    })
+
+    public ResponseEntity<List<VacanteDto>> buscarPorEmpresa(@PathVariable int idEmpresa) {
+        return ResponseEntity.ok(vacanteService.vacantesPorEmpresa(idEmpresa)
                 .stream()
                 .map(VacanteMapper::toDto)
                 .collect(Collectors.toList()));
